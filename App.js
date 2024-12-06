@@ -1,37 +1,59 @@
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, SafeAreaView, Button, Alert, Image, TouchableWithoutFeedback } from 'react-native';
+import { StyleSheet, Text, SafeAreaView, View } from 'react-native';
 
 export default function App() {
-  const handleButtonPress = () => Alert.alert("Уведомление", "вы нажали на кнопку", [
-    {text: "да", onPress:() => console.log("Yes")},
-    {text: "Отмена", onPress:() => console.log("No")}
-  ])
-  const handleTextPress = () => console.log('text pressed');
-  return (
-    <SafeAreaView style={styles.container}>
-      <Text numberOfLines={2} style={styles.text} onPress={handleTextPress}>Hello{"\n"}Hello</Text>
-     
-      <Button title={'Нажми на меня'} color='black' onPress={handleButtonPress}/>
-      
-      <TouchableWithoutFeedback onPress={handleTextPress}>
-        <Image source={require('./assets/orig.png')} style={styles.img}/>
-      </TouchableWithoutFeedback>
 
-      <StatusBar style="auto" />
-    </SafeAreaView>
-  );
+  return(
+    <SafeAreaView style={styles.container}>
+    
+    <View  style={styles.box}>
+      <View style={styles.box_1}>
+        <Text>Hello</Text>
+      </View>
+      <View style={styles.box_2}>
+        <Text>World</Text>
+      </View>
+      <View style={styles.box_3}>
+        <Text>!!!</Text>
+      </View>
+    </View>
+
+    <StatusBar style="auto" />
+  </SafeAreaView>
+  )
 }
+const simleStyle = {backgroundColor:"red", color: "blue"}
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#fff',
+    
   },
-  text: {
-    color: 'red',
+  box:{
+    backgroundColor: "black",
+    display:"flex",
+    textAlign:"center",
+    borderWidth:10,
+    borderColor:"green",
+    flexDirection:"column",
+    justifyContent:"space-around",
+    alignItems:"center"
   },
-  img: {
-    width: 100,
-    height: 100,
+  box_1:{
+    backgroundColor: "white",
+    display:"flex",
+    textAlign:"center",
+    padding:20
   },
+  box_2:{
+    backgroundColor: "blue",
+    padding:20
+    
+  },
+  box_3:{
+    backgroundColor: "red",
+    padding:20
+    
+  }
 });
