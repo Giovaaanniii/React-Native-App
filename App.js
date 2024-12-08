@@ -1,59 +1,51 @@
+import React, {useState} from 'react';
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, SafeAreaView, View } from 'react-native';
+import { StyleSheet, Text, SafeAreaView, View, FlatList } from 'react-native';
+import Header from "./components/Header.js";
+import ListItem from "./components/Listitem.js";
+import Form from './components/Form.js';
 
 export default function App() {
+  const [listOfItems, setListOfItems] = useState([
+    {text: "Купить молоко", key: "1"},
+    {text: "Помыть машину", key: "2"},
+    {text: "Сходить в зал", key: "3"},
+    {text: "Доделать работу", key: "4"}
+  ])
+
+  const addHandler = (text) => {
+    setListOfItems((list) =>{
+      return [
+        { text: text, key: Math.random().toString(36).substring(7) },
+        ...list
+      ]
+    })
+  }
+
+const deleteHandler = (key) =>{
+  setListOfItems((list) => {
+    return list.filter(listOfItems => listOfItems.key != key)
+  })
+}
 
   return(
     <SafeAreaView style={styles.container}>
-    
-    <View  style={styles.box}>
-      <View style={styles.box_1}>
-        <Text>Hello</Text>
+      <Header/>
+      <Form addHandler={addHandler}/>
+      <View>
+        <FlatList data={listOfItems} renderItem={({item}) => (
+          <ListItem el={item} deleteHandler={deleteHandler}/>
+        )}/>
       </View>
-      <View style={styles.box_2}>
-        <Text>World</Text>
-      </View>
-      <View style={styles.box_3}>
-        <Text>!!!</Text>
-      </View>
-    </View>
-
-    <StatusBar style="auto" />
-  </SafeAreaView>
+    </SafeAreaView>
   )
 }
-const simleStyle = {backgroundColor:"red", color: "blue"}
+
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
-    
-  },
-  box:{
-    backgroundColor: "black",
-    display:"flex",
-    textAlign:"center",
-    borderWidth:10,
-    borderColor:"green",
-    flexDirection:"column",
-    justifyContent:"space-around",
-    alignItems:"center"
-  },
-  box_1:{
-    backgroundColor: "white",
-    display:"flex",
-    textAlign:"center",
-    padding:20
-  },
-  box_2:{
-    backgroundColor: "blue",
-    padding:20
-    
-  },
-  box_3:{
-    backgroundColor: "red",
-    padding:20
+    backgroundColor: '#008000',
     
   }
 });
